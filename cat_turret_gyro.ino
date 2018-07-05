@@ -31,8 +31,10 @@ void setup(){
 
 void loop(){ 
   sensor.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-  int16_t newLRPos = map(ax, -17000, 17000, 0, 180);
-  int16_t newUDPos = map(ay, -17000, 17000, 180, 0);
+  ax = constrain(ax, -14000, 14000); //actual range is 17000, but we dont want to move our hands around that much
+  ay = constrain(ay, -14000, 14000);
+  int16_t newLRPos = map(ax, -14000, 14000, 10, 170);
+  int16_t newUDPos = map(ay, -14000, 14000, 170, 10);
   int16_t actLRPos = (newLRPos * 0.1) + (lastLRPos * 0.9);
   int16_t actUDPos = (newUDPos * 0.1) + (lastUDPos * 0.9);
   lastLRPos = actLRPos;
